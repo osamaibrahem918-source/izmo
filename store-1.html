@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Izmo — أزياء بسيطة، صُنعت لتدوم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#221F1B;
+    --sand:#EDE7DD;
+    --sand-2:#E3DCCC;
+    --olive:#5F6B4A;
+    --olive-dark:#4A5439;
+    --brick:#A9432E;
+    --line:#CFC6B2;
+    --white:#FBF9F5;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--sand);
+    color:var(--ink);
+    font-family:'Tajawal', sans-serif;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'El Messiri', serif;
+    font-weight:700;
+    line-height:1.25;
+  }
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block;}
+  button{font-family:inherit; cursor:pointer; border:none; background:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  :focus-visible{outline:2px solid var(--olive-dark); outline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
+  }
+
+  /* HEADER */
+  header{
+    position:sticky; top:0; z-index:40;
+    background:rgba(237,231,221,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:18px 28px;}
+  .logo{display:flex; align-items:center; gap:9px; font-family:'El Messiri',serif; font-size:25px; font-weight:700; letter-spacing:.3px;}
+  .logo-mark{flex-shrink:0;}
+  .nav-links{display:flex; gap:34px; font-size:15px;}
+  .nav-links a{position:relative; padding:4px 0;}
+  .nav-links a::after{
+    content:""; position:absolute; right:0; bottom:-2px; width:0; height:1px;
+    background:var(--ink); transition:width .25s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-right{display:flex; align-items:center; gap:20px;}
+  .cart-btn{position:relative; display:flex; align-items:center; gap:8px; font-size:15px;}
+  .cart-badge{
+    position:absolute; top:-9px; left:-12px;
+    background:var(--brick); color:var(--white);
+    font-size:11px; min-width:18px; height:18px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; padding:0 3px;
+  }
+  .menu-toggle{
+    display:none; flex-direction:column; gap:5px; padding:6px;
+  }
+  .menu-toggle span{width:22px; height:2px; background:var(--ink); display:block;}
+  .mobile-nav{
+    display:none; flex-direction:column; gap:0;
+    background:var(--white); border-bottom:1px solid var(--line);
+  }
+  .mobile-nav.open{display:flex;}
+  .mobile-nav a{padding:16px 28px; border-top:1px solid var(--line); font-size:15px;}
+
+  /* HERO */
+  .hero{padding:64px 0 76px;}
+  .hero-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:50px; align-items:center;}
+  .eyebrow{font-size:14px; color:var(--olive-dark); margin-bottom:14px;}
+  .hero h1{font-size:52px; max-width:520px;}
+  .hero p.lede{margin-top:20px; font-size:17px; max-width:440px; color:#4a453d;}
+  .hero-cta{display:flex; gap:16px; margin-top:32px;}
+  .btn{
+    display:inline-block; padding:13px 28px; font-size:15px; font-weight:500;
+    border-radius:2px; transition:background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .btn-primary{background:var(--ink); color:var(--white);}
+  .btn-primary:hover{background:var(--olive-dark);}
+  .btn-outline{border:1px solid var(--ink);}
+  .btn-outline:hover{border-color:var(--olive-dark); color:var(--olive-dark);}
+  .hero-stats{display:flex; gap:36px; margin-top:44px; padding-top:28px; border-top:1px solid var(--line); max-width:460px;}
+  .hero-stats div b{display:block; font-family:'El Messiri',serif; font-size:22px;}
+  .hero-stats div span{font-size:13px; color:#6b6558;}
+
+  /* fabric fold graphic */
+  .fold-art{position:relative; height:420px;}
+  .fold{position:absolute; border-radius:6px;}
+  .fold.f1{width:78%; height:82%; background:var(--olive); top:0; right:0; transform:rotate(-4deg);}
+  .fold.f2{width:62%; height:64%; background:var(--sand-2); border:1px solid var(--line); bottom:6%; left:2%; transform:rotate(6deg);}
+  .fold.f3{width:38%; height:38%; background:var(--brick); top:10%; left:8%; transform:rotate(-9deg);}
+  .fold-line{position:absolute; inset:0;}
+
+  /* CATEGORIES */
+  .categories{padding:10px 0 70px;}
+  .cat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .cat-card{background:var(--sand); padding:38px 30px; display:flex; align-items:center; justify-content:space-between; transition:background .2s ease;}
+  .cat-card:hover{background:var(--sand-2);}
+  .cat-card h3{font-size:22px; font-weight:600;}
+  .cat-card span{font-size:13px; color:#6b6558;}
+  .cat-arrow{transition:transform .2s ease;}
+  .cat-card:hover .cat-arrow{transform:translateX(-4px);}
+
+  /* SECTION HEAD */
+  .section-head{display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:34px;}
+  .section-head h2{font-size:32px;}
+  .section-head p{font-size:14px; color:#6b6558; max-width:280px;}
+
+  /* PRODUCTS */
+  .products{padding:20px 0 80px;}
+  .product-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
+  .product-card{border:1px solid var(--line); background:var(--white); display:flex; flex-direction:column;}
+  .product-media{
+    aspect-ratio:4/5; position:relative; display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .product-media svg{width:46%; height:46%;}
+  .tag{
+    position:absolute; top:12px; right:12px; background:var(--ink); color:var(--white);
+    font-size:11px; padding:4px 10px; border-radius:2px;
+  }
+  .product-info{padding:18px 18px 20px; display:flex; flex-direction:column; gap:10px; flex:1;}
+  .product-info h3{font-size:17px; font-weight:500; font-family:'Tajawal',sans-serif;}
+  .product-info .cat-label{font-size:12px; color:#8a8375;}
+  .price-row{display:flex; align-items:center; justify-content:space-between; margin-top:auto; padding-top:6px;}
+  .price{font-family:'El Messiri',serif; font-size:18px; font-weight:600;}
+  .add-btn{
+    font-size:13px; border:1px solid var(--ink); padding:8px 16px; border-radius:2px;
+    transition:background .2s ease, color .2s ease;
+  }
+  .add-btn:hover{background:var(--ink); color:var(--white);}
+
+  /* ABOUT / CRAFT */
+  .craft{padding:70px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .craft-grid{display:grid; grid-template-columns:.9fr 1.1fr; gap:60px; align-items:center;}
+  .craft blockquote{
+    font-family:'El Messiri',serif; font-size:28px; line-height:1.5; color:var(--ink);
+    border-right:2px solid var(--brick); padding-right:22px;
+  }
+  .craft p.body-text{font-size:16px; color:#4a453d; max-width:480px;}
+  .craft p.body-text + p{margin-top:16px;}
+
+  /* NEWSLETTER */
+  .newsletter{padding:70px 0; text-align:center;}
+  .newsletter h2{font-size:30px; max-width:480px; margin:0 auto 14px;}
+  .newsletter p{color:#6b6558; margin-bottom:28px;}
+  .nl-form{display:flex; justify-content:center; gap:0; max-width:420px; margin:0 auto;}
+  .nl-form input{
+    flex:1; padding:13px 16px; border:1px solid var(--ink); border-left:none;
+    background:var(--white); font-family:inherit; font-size:14px;
+  }
+  .nl-form button{padding:13px 24px; background:var(--ink); color:var(--white); font-size:14px; white-space:nowrap;}
+  .nl-form button:hover{background:var(--olive-dark);}
+  .nl-note{font-size:12px; color:#8a8375; margin-top:12px;}
+
+  /* FOOTER */
+  footer{padding:50px 0 30px; border-top:1px solid var(--line);}
+  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:30px; margin-bottom:40px;}
+  .foot-grid h4{font-size:14px; margin-bottom:14px;}
+  .foot-grid ul{list-style:none; display:flex; flex-direction:column; gap:9px;}
+  .foot-grid ul a{font-size:14px; color:#4a453d;}
+  .foot-grid ul a:hover{color:var(--olive-dark);}
+  .foot-logo{font-family:'El Messiri',serif; font-size:22px; margin-bottom:10px;}
+  .foot-desc{font-size:14px; color:#6b6558; max-width:260px;}
+  .foot-bottom{display:flex; justify-content:space-between; font-size:13px; color:#8a8375; padding-top:20px; border-top:1px solid var(--line);}
+
+  /* CART DRAWER */
+  .overlay{
+    position:fixed; inset:0; background:rgba(34,31,27,0.4); opacity:0; pointer-events:none;
+    transition:opacity .25s ease; z-index:60;
+  }
+  .overlay.open{opacity:1; pointer-events:auto;}
+  .drawer{
+    position:fixed; top:0; left:0; height:100%; width:380px; max-width:88vw;
+    background:var(--white); z-index:70; transform:translateX(-100%);
+    transition:transform .3s ease; display:flex; flex-direction:column;
+    box-shadow:8px 0 24px rgba(0,0,0,.08);
+  }
+  .drawer.open{transform:translateX(0);}
+  .drawer-head{display:flex; align-items:center; justify-content:space-between; padding:22px 24px; border-bottom:1px solid var(--line);}
+  .drawer-head h3{font-size:19px;}
+  .close-btn{font-size:22px; line-height:1;}
+  .drawer-items{flex:1; overflow-y:auto; padding:10px 24px;}
+  .cart-empty{color:#8a8375; font-size:14px; padding:40px 0; text-align:center;}
+  .cart-item{display:flex; gap:14px; padding:16px 0; border-bottom:1px solid var(--line);}
+  .ci-media{width:64px; height:74px; background:var(--sand-2); flex-shrink:0; display:flex; align-items:center; justify-content:center;}
+  .ci-media svg{width:55%; height:55%;}
+  .ci-info{flex:1; display:flex; flex-direction:column; gap:6px;}
+  .ci-top{display:flex; justify-content:space-between; font-size:14px;}
+  .ci-qty{display:flex; align-items:center; gap:10px; font-size:14px;}
+  .qty-btn{width:22px; height:22px; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-size:14px;}
+  .ci-remove{font-size:12px; color:#8a8375; align-self:flex-start;}
+  .ci-remove:hover{color:var(--brick);}
+  .drawer-foot{padding:22px 24px; border-top:1px solid var(--line);}
+  .subtotal-row{display:flex; justify-content:space-between; font-size:15px; margin-bottom:16px;}
+  .subtotal-row b{font-family:'El Messiri',serif; font-size:19px;}
+  .checkout-btn{width:100%; padding:14px; background:var(--ink); color:var(--white); font-size:15px;}
+  .checkout-btn:hover{background:var(--olive-dark);}
+
+  @media (max-width:900px){
+    .hero-grid, .craft-grid{grid-template-columns:1fr; gap:36px;}
+    .fold-art{height:280px; order:-1;}
+    .hero h1{font-size:38px;}
+    .nav-links{display:none;}
+    .menu-toggle{display:flex;}
+    .cat-grid{grid-template-columns:1fr;}
+    .product-grid{grid-template-columns:repeat(2,1fr);}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:520px){
+    .product-grid{grid-template-columns:1fr;}
+    .hero-stats{flex-wrap:wrap; row-gap:18px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav wrap">
+    <div class="logo">
+      <svg class="logo-mark" width="27" height="27" viewBox="0 0 28 28" aria-hidden="true">
+        <rect x="3" y="3" width="15" height="15" rx="3" transform="rotate(12 10.5 10.5)" fill="var(--olive)"/>
+        <rect x="10" y="10" width="15" height="15" rx="3" transform="rotate(-14 17.5 17.5)" fill="var(--brick)" fill-opacity="0.88"/>
+      </svg>
+      <span>Izmo</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#products">المنتجات</a>
+      <a href="#categories">الأقسام</a>
+      <a href="#craft">من نحن</a>
+      <a href="#newsletter">تواصل</a>
+    </nav>
+    <div class="nav-right">
+      <button class="menu-toggle" id="menuToggleBtn" aria-label="فتح القائمة"><span></span><span></span><span></span></button>
+      <button class="cart-btn" id="cartOpenBtn" aria-label="فتح السلة">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 7h15l-1.5 9.5a2 2 0 0 1-2 1.7H8.7a2 2 0 0 1-2-1.7L5 4H2"/><circle cx="10" cy="20.5" r="1"/><circle cx="17" cy="20.5" r="1"/></svg>
+        السلة
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="#products">المنتجات</a>
+    <a href="#categories">الأقسام</a>
+    <a href="#craft">من نحن</a>
+    <a href="#newsletter">تواصل</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">مجموعة الخريف — قطع محدودة</div>
+      <h1>أزياء بسيطة، صُنعت لتدوم</h1>
+      <p class="lede">قطع يومية بخامات طبيعية وقصّات هادئة، مصمَّمة لخزانة ملابس تدوم مواسم لا موسمًا واحدًا.</p>
+      <div class="hero-cta">
+        <a href="#products" class="btn btn-primary">تسوّقي المجموعة</a>
+        <a href="https://wa.me/201203043812" target="_blank" class="btn btn-outline">اطلبي عبر واتساب</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>+٢٠٠</b><span>قطعة مصمَّمة يدويًا</span></div>
+        <div><b>خامات طبيعية</b><span>قطن وكتان وصوف</span></div>
+        <div><b>شحن لكل الدول</b><span>خلال ٣–٧ أيام</span></div>
+      </div>
+    </div>
+    <div class="fold-art" aria-hidden="true">
+      <div class="fold f1"></div>
+      <div class="fold f2"></div>
+      <div class="fold f3"></div>
+    </div>
+  </div>
+</section>
+
+<section class="categories" id="categories">
+  <div class="wrap">
+    <div class="cat-grid">
+      <a href="#products" class="cat-card"><h3>نسائي</h3><span class="cat-arrow">←</span></a>
+      <a href="#products" class="cat-card"><h3>رجالي</h3><span class="cat-arrow">←</span></a>
+      <a href="#products" class="cat-card"><h3>إكسسوارات</h3><span class="cat-arrow">←</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="products">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>مختارات هذا الأسبوع</h2>
+      <p>قطع نبيعها بكميات محدودة، تُجدَّد كل موسم.</p>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+</section>
+
+<section class="craft" id="craft">
+  <div class="wrap craft-grid">
+    <blockquote>"القطعة الجيدة لا تحتاج أن تُستبدل، بل أن تُعاش معها."</blockquote>
+    <div>
+      <p class="body-text">بدأت Izmo كورشة صغيرة تؤمن أن الملابس اليومية لا يجب أن تكون رخيصة الصنع ولا باهظة بلا سبب. نختار الأقمشة بعناية، ونتعامل مع ورش خياطة محلية تحترم وقتها وتفاصيلها.</p>
+      <p class="body-text">كل قطعة تُفحص يدويًا قبل التغليف، وتصلك في تغليف قابل لإعادة الاستخدام — لأن الاهتمام بالتفاصيل الصغيرة هو ما يصنع الفرق.</p>
+    </div>
+  </div>
+</section>
+
+<section class="newsletter" id="newsletter">
+  <div class="wrap">
+    <h2>كوني أول من يعرف عن القطع الجديدة</h2>
+    <p>نرسل بريدًا واحدًا أسبوعيًا، بلا إزعاج.</p>
+    <form class="nl-form" onsubmit="event.preventDefault(); this.reset(); alert('تم الاشتراك، شكرًا لك.');">
+      <input type="email" placeholder="بريدك الإلكتروني" required>
+      <button type="submit">اشتراك</button>
+    </form>
+    <div class="nl-note">هذا نموذج عرض تجريبي — يمكن ربطه بأي خدمة بريد فعلية لاحقًا.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">
+          <svg width="24" height="24" viewBox="0 0 28 28" aria-hidden="true" style="display:inline-block; vertical-align:-6px; margin-left:8px;">
+            <rect x="3" y="3" width="15" height="15" rx="3" transform="rotate(12 10.5 10.5)" fill="var(--olive)"/>
+            <rect x="10" y="10" width="15" height="15" rx="3" transform="rotate(-14 17.5 17.5)" fill="var(--brick)" fill-opacity="0.88"/>
+          </svg>Izmo
+        </div>
+        <p class="foot-desc">أزياء يومية بخامات طبيعية، مصمَّمة وصُنعت بعناية.</p>
+      </div>
+      <div>
+        <h4>المتجر</h4>
+        <ul><li><a href="#products">كل المنتجات</a></li><li><a href="#categories">الأقسام</a></li><li><a href="#">القطع الجديدة</a></li></ul>
+      </div>
+      <div>
+        <h4>الشركة</h4>
+        <ul><li><a href="#craft">من نحن</a></li><li><a href="#">التوصيل والإرجاع</a></li><li><a href="#">تواصل معنا</a></li></ul>
+      </div>
+      <div>
+        <h4>تابعينا</h4>
+        <ul><li><a href="#">إنستغرام</a></li><li><a href="#">تيك توك</a></li><li><a href="#">واتساب</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Izmo. جميع الحقوق محفوظة.</span>
+      <span>صُمم وبُني خصيصًا لهذا المتجر</span>
+    </div>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="سلة المشتريات">
+  <div class="drawer-head">
+    <h3>سلة المشتريات</h3>
+    <button class="close-btn" id="cartCloseBtn" aria-label="إغلاق">×</button>
+  </div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-foot">
+    <div class="subtotal-row"><span>المجموع الفرعي</span><b id="subtotalVal">٠ د.أ</b></div>
+    <button class="checkout-btn" id="checkoutBtn">إتمام الطلب عبر واتساب</button>
+    <div class="nl-note" style="margin-top:10px; text-align:center;">الدفع عند الاستلام — راح نأكد الطلب معك على واتساب</div>
+  </div>
+</aside>
+
+<script>
+// ---- Icons (garment silhouettes) ----
+const ICONS = {
+  shirt: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 8 L32 14 L42 8 L54 16 L47 26 L42 22 L42 56 L22 56 L22 22 L17 26 L10 16 Z" stroke-linejoin="round"/></svg>`,
+  dress: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 8 L26 20 L14 56 L50 56 L38 20 L40 8 Z" stroke-linejoin="round"/><path d="M24 8 Q32 14 40 8" /></svg>`,
+  jacket: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 8 L32 16 L42 8 L54 18 L48 30 L42 26 L42 56 L22 56 L22 26 L16 30 L10 18 Z" stroke-linejoin="round"/><path d="M32 16 L28 56 M32 16 L36 56"/></svg>`,
+  bag: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="12" y="22" width="40" height="32" rx="3"/><path d="M22 22 V16 a10 10 0 0 1 20 0 v6"/></svg>`,
+  pants: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8 H46 L48 56 H38 L32 24 L26 56 H16 Z" stroke-linejoin="round"/></svg>`,
+  scarf: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 20 Q32 8 56 20 Q40 30 44 44 Q32 38 20 44 Q24 30 8 20 Z" stroke-linejoin="round"/></svg>`
+};
+
+const PRODUCTS = [
+  {id:1, name:"قميص كتان فضفاض", cat:"نسائي", price:38, icon:"shirt", color:"#DED4BF", tag:"الأكثر مبيعًا"},
+  {id:2, name:"فستان صيفي بسيط", cat:"نسائي", price:52, icon:"dress", color:"#E4DCCB"},
+  {id:3, name:"جاكيت صوف خفيف", cat:"رجالي", price:76, icon:"jacket", color:"#CBCABA", tag:"جديد"},
+  {id:4, name:"حقيبة جلد طبيعي", cat:"إكسسوارات", price:64, icon:"bag", color:"#D9CFC0"},
+  {id:5, name:"بنطال قطن مستقيم", cat:"رجالي", price:44, icon:"pants", color:"#DFD8C8"},
+  {id:6, name:"وشاح صوف وكشمير", cat:"إكسسوارات", price:29, icon:"scarf", color:"#E6DED0"}
+];
+
+let cart = []; // {id, qty}
+const WHATSAPP_NUMBER = "201203043812"; // مصر +20، بدون صفر أو علامة +
+
+function fmt(n){ return n.toLocaleString('ar') + ' د.أ'; }
+
+function renderProducts(){
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = PRODUCTS.map(p => `
+    <div class="product-card">
+      <div class="product-media" style="background:${p.color}">
+        ${p.tag ? `<span class="tag">${p.tag}</span>` : ''}
+        <div style="color:${'#221F1B'}">${ICONS[p.icon]}</div>
+      </div>
+      <div class="product-info">
+        <span class="cat-label">${p.cat}</span>
+        <h3>${p.name}</h3>
+        <div class="price-row">
+          <span class="price">${fmt(p.price)}</span>
+          <button class="add-btn" onclick="addToCart(${p.id})">أضف للسلة</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addToCart(id){
+  const existing = cart.find(c => c.id === id);
+  if(existing){ existing.qty++; } else { cart.push({id, qty:1}); }
+  renderCart();
+  openDrawer();
+}
+
+function changeQty(id, delta){
+  const item = cart.find(c => c.id === id);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty <= 0){ cart = cart.filter(c => c.id !== id); }
+  renderCart();
+}
+
+function removeItem(id){
+  cart = cart.filter(c => c.id !== id);
+  renderCart();
+}
+
+function renderCart(){
+  const wrap = document.getElementById('drawerItems');
+  const badge = document.getElementById('cartBadge');
+  const subtotalVal = document.getElementById('subtotalVal');
+
+  const totalQty = cart.reduce((s,c) => s + c.qty, 0);
+  badge.textContent = totalQty;
+
+  if(cart.length === 0){
+    wrap.innerHTML = `<div class="cart-empty">السلة فارغة حاليًا</div>`;
+    subtotalVal.textContent = fmt(0);
+    return;
+  }
+
+  let subtotal = 0;
+  wrap.innerHTML = cart.map(c => {
+    const p = PRODUCTS.find(x => x.id === c.id);
+    subtotal += p.price * c.qty;
+    return `
+      <div class="cart-item">
+        <div class="ci-media" style="background:${p.color}; color:#221F1B;">${ICONS[p.icon]}</div>
+        <div class="ci-info">
+          <div class="ci-top"><span>${p.name}</span><span>${fmt(p.price * c.qty)}</span></div>
+          <div class="ci-qty">
+            <button class="qty-btn" onclick="changeQty(${p.id}, -1)">−</button>
+            <span>${c.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${p.id}, 1)">+</button>
+          </div>
+          <button class="ci-remove" onclick="removeItem(${p.id})">إزالة</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+  subtotalVal.textContent = fmt(subtotal);
+}
+
+function openDrawer(){
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+}
+
+document.getElementById('menuToggleBtn').addEventListener('click', () => {
+  document.getElementById('mobileNav').classList.toggle('open');
+});
+document.querySelectorAll('.mobile-nav a').forEach(link => {
+  link.addEventListener('click', () => document.getElementById('mobileNav').classList.remove('open'));
+});
+
+document.getElementById('cartOpenBtn').addEventListener('click', openDrawer);
+document.getElementById('cartCloseBtn').addEventListener('click', closeDrawer);
+document.getElementById('overlay').addEventListener('click', closeDrawer);
+document.getElementById('checkoutBtn').addEventListener('click', () => {
+  if(cart.length === 0){ alert('السلة فارغة.'); return; }
+
+  let lines = ["مرحبًا، حابب/ة أطلب:"];
+  let total = 0;
+  cart.forEach(c => {
+    const p = PRODUCTS.find(x => x.id === c.id);
+    const lineTotal = p.price * c.qty;
+    total += lineTotal;
+    lines.push(`- ${p.name} × ${c.qty} (${fmt(lineTotal)})`);
+  });
+  lines.push(`المجموع: ${fmt(total)}`);
+  lines.push("");
+  lines.push("الاسم:");
+  lines.push("العنوان:");
+  lines.push("رقم التواصل:");
+
+  const message = encodeURIComponent(lines.join("\n"));
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, "_blank");
+});
+
+renderProducts();
+renderCart();
+</script>
+
+</body>
+</html>
